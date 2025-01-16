@@ -13,7 +13,7 @@ partial class Form1
     private PictureBox pictureAnalyse;
     private List<Cercle> cercles = new List<Cercle>();
     private Color colorTeamHaveBallon;
-    private bool isRight; // true si l'équipe qui deffend est à droite, false sinon / sens vers les quel les attaquant tire le ballon
+    private bool isRight; // true si l'équipe qui deffend est à droite, false sinon / sens vers la quelle les attaquant tire le ballon
     private int ligneDeffensive; // position de la ligne deffensive
     private List<Cercle> teamDeffender; 
     protected override void Dispose(bool disposing)
@@ -177,7 +177,7 @@ partial class Form1
         Console.Out.WriteLine("Equipe qui a le ballon: " + this.colorTeamHaveBallon);
         
         
-        // Dessiner une ligne verticale pour diviser la ligne defensive
+        // Dessiner une ligne defensive
         if (this.isRight)
         {
             this.ligneDeffensive = (int)(Cercle.GetDefensiveLine(this.teamDeffender, this.isRight)+this.teamDeffender[0].Radius);
@@ -186,8 +186,6 @@ partial class Form1
         {
             this.ligneDeffensive = (int)(Cercle.GetDefensiveLine(this.teamDeffender, this.isRight)-this.teamDeffender[0].Radius);;
         }
-        
-       
         Cv2.Line(
             result,
             new Point(this.ligneDeffensive, 0), // Starting point at the top of the image
@@ -197,6 +195,7 @@ partial class Form1
         );
         
         
+        //Printer les joueur sur terminal 
         foreach (var cercle in sortedCercles)
         {
             Console.Out.WriteLine(cercle.ColorTeam);
@@ -206,6 +205,7 @@ partial class Form1
             }
         }
         
+        // Dessiner les joueur detectés
         foreach (var cercle in cercles)
         {
             Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
@@ -213,7 +213,7 @@ partial class Form1
             {
                 Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, Scalar.Yellow, 2);
                 Cv2.PutText(
-                    result,                     // Image to draw on
+                    result,            // Image to draw on
                     "HR",           // Text to display
                     new Point(cercle.Position.X, cercle.Position.Y-5),  // Bottom-left corner of the text
                     HersheyFonts.HersheySimplex, // Font style
@@ -226,16 +226,11 @@ partial class Form1
             else
             {
                 Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
-
             }
             Console.Out.WriteLine("Position: " + cercle.Position + " | Couleur: " + cercle.ColorTeam + " | Rayon: " + cercle.Radius);
         }
         pictureAnalyse.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(result);
 
     }
-    
-    
-    
-    
 }
     
