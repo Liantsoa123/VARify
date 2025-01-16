@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="OpenCvSharp4" Version="4.10.0.20241108" />
+      <PackageReference Include="OpenCvSharp4.Extensions" Version="4.10.0.20241108" />
+      <PackageReference Include="OpenCvSharp4.slim.runtime.windows-x64" Version="4.8.1.20231129" />
+    </ItemGroup>
+
+</Project>
