@@ -15,7 +15,8 @@ partial class Form1
     private Color colorTeamHaveBallon;
     private bool isRight; // true si l'équipe qui deffend est à droite, false sinon / sens vers la quelle les attaquant tire le ballon
     private int ligneDeffensive; // position de la ligne deffensive
-    private List<Cercle> teamDeffender; 
+    private List<Cercle> teamDeffender;
+    private int limitRaduis = 3; 
     protected override void Dispose(bool disposing)
     {
         if (disposing && (components != null))
@@ -105,7 +106,7 @@ partial class Form1
             float radius;
             Cv2.MinEnclosingCircle(contour, out center, out radius);
 
-            if (radius > 1) // Ignorer les petits bruits
+            if (radius > this.limitRaduis) // Ignorer les petits bruits
             {
                 Cercles.Add(new Cercle(new System.Drawing.Point((int)center.X, (int)center.Y), color, (decimal)radius));
             }
@@ -194,16 +195,7 @@ partial class Form1
             2 // Thickness of the line
         );
         
-        
-        //Printer les joueur sur terminal 
-        foreach (var cercle in sortedCercles)
-        {
-            Console.Out.WriteLine(cercle.ColorTeam);
-            if (cercle.IsOffside )
-            {
-                Console.Out.WriteLine("Hors-jeu");
-            }
-        }
+  
         
         // Dessiner les joueur detectés
         foreach (var cercle in cercles)
@@ -219,7 +211,7 @@ partial class Form1
                     HersheyFonts.HersheySimplex, // Font style
                     0.5,                        // Font scale (size)
                     Scalar.White,               // Text color (White in this case)
-                    2                           // Thickness of the text
+                    2                        // Thickness of the text
                 );
 
             }
@@ -227,10 +219,25 @@ partial class Form1
             {
                 Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
             }
-            Console.Out.WriteLine("Position: " + cercle.Position + " | Couleur: " + cercle.ColorTeam + " | Rayon: " + cercle.Radius);
         }
         pictureAnalyse.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(result);
+    
+              
+        //Printer les joueur sur terminal 
+        foreach (var cercle in sortedCercles)
+        {
+            Console.Out.WriteLine(cercle.ColorTeam);
+            if (cercle.IsOffside )
+            {
+                Console.Out.WriteLine("Hors-jeu");
+            }
+        }
 
+        Console.Out.WriteLine("TeamColor have the ball= "+ this.colorTeamHaveBallon );
+        Console.Out.WriteLine("The side of the Deffender= "+ this.teamDeffender[0].ColorTeam);
+        Console.Out.WriteLine("Number of the Team1= " + team1.Count + " color= "+ team1[0].ColorTeam );
+        Console.Out.WriteLine("Number of the Team2= "+ team2.Count + " Color= "+ team2[0].ColorTeam);
+        
     }
 }
     
