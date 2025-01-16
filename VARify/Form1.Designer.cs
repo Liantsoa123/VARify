@@ -202,10 +202,10 @@ partial class Form1
         // Dessiner les joueur detectés
         foreach (var cercle in cercles)
         {
-            Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
+            //Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
             if ( cercle.IsOffside )
             {
-                Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, Scalar.Yellow, 2);
+                //Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, Scalar.Yellow, 2);
                 Cv2.PutText(
                     result,            // Image to draw on
                     "HR",           // Text to display
@@ -219,7 +219,7 @@ partial class Form1
             }
             else if ( cercle.Isgood )
             {
-                Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, Scalar.Yellow, 2);
+                //Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, Scalar.Yellow, 2);
                 Cv2.PutText(
                     result,            // Image to draw on
                     "MT",           // Text to display
@@ -234,7 +234,7 @@ partial class Form1
             }
             else
             {
-                Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
+                //Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
             }
         }
         pictureAnalyse.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(result);

@@ -113,7 +113,7 @@ namespace VARify.model
                         {
                             cercle.IsOffside = true;
                         }
-                        else if ( cercle.Position.X + cercle.Radius < defensiveLine && ball.Position.X+ ball.Radius < cercle.Position.X+cercle.Radius )
+                        else if ( cercle.Position.X + cercle.Radius < defensiveLine && hasBall.Position.X+ hasBall.Radius < cercle.Position.X+cercle.Radius )
                         {
                             cercle.Isgood = true; 
                         }
@@ -125,7 +125,7 @@ namespace VARify.model
                         {
                             cercle.IsOffside = true;
                         }
-                        else if ( cercle.Position.X - cercle.Radius > defensiveLine && ball.Position.X- ball.Radius > cercle.Position.X - cercle.Radius )
+                        else if ( cercle.Position.X - cercle.Radius > defensiveLine && hasBall.Position.X- hasBall.Radius > cercle.Position.X - cercle.Radius )
                         {
                             cercle.Isgood = true; 
                         }
