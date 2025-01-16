@@ -114,6 +114,8 @@ partial class Form1
 
         return Cercles;
     }
+    
+
 
     private void AnalyseButton_Click(object sender, EventArgs e)
     {
@@ -215,6 +217,21 @@ partial class Form1
                 );
 
             }
+            else if ( cercle.Isgood )
+            {
+                Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, Scalar.Yellow, 2);
+                Cv2.PutText(
+                    result,            // Image to draw on
+                    "MT",           // Text to display
+                    new Point(cercle.Position.X, cercle.Position.Y-5),  // Bottom-left corner of the text
+                    HersheyFonts.HersheySimplex, // Font style
+                    0.5,                        // Font scale (size)
+                    Scalar.White,               // Text color (White in this case)
+                    2                        // Thickness of the text
+                );
+                DrawArrow(result, new Point((double)cercleHaveBallon.Position.X, cercleHaveBallon.Position.Y) , new Point((double)cercle.Position.X, cercle.Position.Y),Scalar.Aqua);
+
+            }
             else
             {
                 Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
@@ -237,7 +254,23 @@ partial class Form1
         Console.Out.WriteLine("The side of the Deffender= "+ this.teamDeffender[0].ColorTeam);
         Console.Out.WriteLine("Number of the Team1= " + team1.Count + " color= "+ team1[0].ColorTeam );
         Console.Out.WriteLine("Number of the Team2= "+ team2.Count + " Color= "+ team2[0].ColorTeam);
+        Console.Out.WriteLine("Numbre ballon = "+ ballon.Count);
         
+    }
+    
+    private static void DrawArrow(Mat image, Point startPoint, Point endPoint, Scalar color, int thickness = 2, double tipLength = 0.2)
+    {
+        // Dessiner la ligne principale de la flèche
+        Cv2.ArrowedLine(
+            image,              // Mat sur lequel dessiner
+            startPoint,         // Point de départ
+            endPoint,           // Point d'arrivée
+            color,              // Couleur de la flèche
+            thickness,          // Épaisseur de la ligne
+            LineTypes.Link8,    // Type de ligne
+            0,                  // Nombre de pixels pour l'approximation
+            tipLength           // Taille relative de la pointe de la flèche
+        );
     }
 }
     

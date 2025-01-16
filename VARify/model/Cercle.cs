@@ -9,12 +9,14 @@ namespace VARify.model
         public bool IsOffside { get; set; }
         public decimal Radius { get; set; } // Renamed for better readability
 
+        public bool Isgood { get; set; }
         public Cercle(Point position, Color colorTeam, decimal radius)
         {
             Position = position;
             ColorTeam = colorTeam;
             IsOffside = false;
             Radius = radius;
+            Isgood = false; 
         }
         
         public static Cercle FindClosestCercle(Point referencePoint, List<Cercle> cercles)
@@ -111,6 +113,10 @@ namespace VARify.model
                         {
                             cercle.IsOffside = true;
                         }
+                        else if ( cercle.Position.X + cercle.Radius < defensiveLine && ball.Position.X+ ball.Radius < cercle.Position.X+cercle.Radius )
+                        {
+                            cercle.Isgood = true; 
+                        }
                         
                     }
                     else
@@ -118,6 +124,10 @@ namespace VARify.model
                         if (cercle.Position.X  - cercle.Radius < defensiveLine && width /2 > cercle.Position.X  - cercle.Radius && ball.Position.X - ball.Radius > cercle.Position.X ) 
                         {
                             cercle.IsOffside = true;
+                        }
+                        else if ( cercle.Position.X - cercle.Radius > defensiveLine && ball.Position.X- ball.Radius > cercle.Position.X - cercle.Radius )
+                        {
+                            cercle.Isgood = true; 
                         }
                         
                     }
