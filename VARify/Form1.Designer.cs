@@ -16,7 +16,7 @@ partial class Form1
     private bool isRight; // true si l'équipe qui deffend est à droite, false sinon / sens vers la quelle les attaquant tire le ballon
     private int ligneDeffensive; // position de la ligne deffensive
     private List<Cercle> teamDeffender;
-    private int limitRaduis = 3; 
+    private int limitRaduis =3; 
     protected override void Dispose(bool disposing)
     {
         if (disposing && (components != null))
@@ -217,7 +217,7 @@ partial class Form1
                 );
 
             }
-            else if ( cercle.Isgood )
+            else if ( cercle.Isgood  )
             {
                 //Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, Scalar.Yellow, 2);
                 Cv2.PutText(
@@ -229,12 +229,8 @@ partial class Form1
                     Scalar.White,               // Text color (White in this case)
                     2                        // Thickness of the text
                 );
-                DrawArrow(result, new Point((double)cercleHaveBallon.Position.X, cercleHaveBallon.Position.Y) , new Point((double)cercle.Position.X, cercle.Position.Y),Scalar.Aqua);
+                DrawArrow(result, new Point((double)cercleHaveBallon.Position.X, cercleHaveBallon.Position.Y) , new Point((double)cercle.Position.X, cercle.Position.Y),Scalar.Red);
 
-            }
-            else
-            {
-                //Cv2.Circle(result, new Point((double)cercle.Position.X, cercle.Position.Y), 10, cercle.ColorTeam == Color.Blue ? Scalar.Blue : Scalar.Red, 2);
             }
         }
         pictureAnalyse.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(result);
